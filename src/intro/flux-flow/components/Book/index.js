@@ -3,41 +3,48 @@ import React, { Component } from 'react';
 
 // Instruments
 import Styles from './styles';
+import { changePage } from '../../actions/book';
+import dispatcher from '../../dispatcher';
+import BookStore from '../../stores/Book';
 
 export default class Book extends Component {
     constructor () {
         super();
 
+        debugger;
+
         this.onChange = ::this._onChange;
         this.changePage = ::this._changePage;
     }
 
-    state = {
-        currentPage: 0,
-        totalPages:  698,
-        title:       'Magic and Enchantment',
-    };
+    state = BookStore.getState();
 
     componentDidMount () {
-        // Some logic...
+        debugger;
+        BookStore.subscribe(this.onChange);
     }
 
+    // от утечки памяти
     componentWillUnmount () {
-        // Some logic...
+        BookStore.unsubscribe(this.onChange);
     }
 
     _onChange () {
+        debugger;
         this.setState(() => ({
-            currentPage: 0,
+            currentPage: BookStore.getCurrentPage(),
         }));
     }
 
     _changePage () {
-        // Some logic...
+        debugger;
+        dispatcher.dispatch(changePage(event.target.value));
     }
 
     render () {
         const { currentPage, totalPages, title } = this.state;
+
+        debugger;
 
         const pagesToSelect = [...Array(totalPages).keys()].map((page) => (
             <option key = { page }>{page}</option>
