@@ -4,6 +4,7 @@ export const changePage = (page) => {
 
     debugger;
 
+    // object
     return {
         type: CHANGE_PAGE,
         payload: page,

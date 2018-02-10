@@ -19,7 +19,7 @@ export default class Book extends Component {
 
     state = BookStore.getState();
 
-    componentDidMount () {
+    componentWillMount () {
         debugger;
         BookStore.subscribe(this.onChange);
     }
@@ -36,7 +36,7 @@ export default class Book extends Component {
         }));
     }
 
-    _changePage () {
+    _changePage (event) {
         debugger;
         dispatcher.dispatch(changePage(event.target.value));
     }

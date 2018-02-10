@@ -1,6 +1,6 @@
 export default new class  Dispatcher {
     constructor () {
-        this.__listners = [];
+        this.__listeners = [];
     }
 
     // хранит callback,
@@ -9,12 +9,12 @@ export default new class  Dispatcher {
         // пропускаем через все слушатели
 
         debugger;
-        this.__listners.forEach((listeners) => listeners(action));
+        this.__listeners.forEach((listener) => listener(action));
     }
 
     // регистрирует store, как слушаетль dispatcher вызывается там же
     register (listener) {
         debugger;
-        this.__listners.push(listener);
+        this.__listeners.push(listener);
     }
 }();

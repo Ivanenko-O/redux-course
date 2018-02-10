@@ -36,6 +36,7 @@ export default new class BookStore extends EventEmitter {
     }
 
     unsubscribe (callback) {
+
         this.removeListener('change', callback);
     }
 
