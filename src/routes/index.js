@@ -9,30 +9,30 @@ import pages from './pages';
 import authActions from 'actions/auth';
 import { getAuthenticated} from '../selectors/auth';
 
-import Public from './Public';
-import Private from './Private';
-
+import Public from './public';
+import Private from './private';
 
 import Catcher from 'components/Catcher';
 import Loading from 'components/Loading';
-import {getAuthenticated} from "../selectors/auth/index";
 
 class Routes extends Component {
     render() {
-        const { authenticated } = this.props;
-        return (
+        const { authenticated, initialized } = this.props;
+
+        return initialized ? (
             <Catcher>
                 <Switch>
                     { !authenticated && <Public /> }
                     <Private />
                 </Switch>
             </Catcher>
-        )
+        ) : (<Loading />);
     }
 }
 
-const mapStateToProps = ({ auth}) => ({
+const mapStateToProps = ({ auth, ui }) => ({
     authenticated: getAuthenticated(auth),
+    initialized: ui.initialized,
 });
 
 export default connect(mapStateToProps)(Routes);
