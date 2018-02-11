@@ -10,7 +10,7 @@ import Styles from './styles';
 import pages from 'routes/pages';
 import authActions from 'actions/auth';
 import { getAuthenticated } from 'selectors/auth';
-import { getProfile } from 'selectors/profile';
+// import { getProfile } from 'selectors/profile';
 
 class Navigation extends Component {
     static propTypes = {
@@ -36,7 +36,7 @@ class Navigation extends Component {
                     key = '0'
                     to = { pages.profile }>
                     <img src = { avatar } />
-                    {firstName}
+                    { firstName }
                 </NavLink>,
                 <NavLink
                     activeClassName = { Styles.active }
@@ -77,7 +77,7 @@ class Navigation extends Component {
 
 const mapStateToProps = ({ auth, profile }) => ({
     authenticated: getAuthenticated(auth),
-    profile:       getProfile(profile),
+    profile
 });
 
 const mapDispatchToProps = (dispatch) => ({
