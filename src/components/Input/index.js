@@ -3,6 +3,8 @@ import React from 'react';
 import { string } from 'prop-types';
 import { Control } from 'react-redux-form';
 
+{/* props  редакс формы мапит пропсы*/}
+
 const Input = (props) => (
     <Control
         { ...props }

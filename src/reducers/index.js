@@ -6,6 +6,7 @@ import notifications from './notifications';
 import auth from './auth';
 import profile from './profile';
 import ui from './ui';
+import forms from './forms';
 
 export default combineReducers ({
     router,
@@ -14,4 +15,5 @@ export default combineReducers ({
     auth,
     profile,
     ui,
+    forms,
 });
