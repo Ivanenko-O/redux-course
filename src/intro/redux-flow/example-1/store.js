@@ -15,4 +15,6 @@ const logger = (store) => (next) => (action) => {
 };
 
 // Init store
+
+// rootreducer - группирует редусеры
 export default createStore(rootReducer, applyMiddleware(logger));

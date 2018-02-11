@@ -27,6 +27,7 @@ document.body.appendChild(secondReducerButton);
 // Initialize list
 document.body.appendChild(document.createElement('ul'));
 
+// на 11 строке вызываем  первый стор , второй сторе () из замыкания на 13
 export const render = (store) => () => {
     const oldList = document.querySelector('ul');
     const newList = document.createElement('ul');

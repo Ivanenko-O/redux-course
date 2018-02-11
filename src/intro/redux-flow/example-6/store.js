@@ -23,6 +23,7 @@ const logger = createLogger({
 // Environment check
 const dev = process.env.NODE_ENV === 'development'; // eslint-disable-line
 const devtools = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
+// на месте компоус бдет результат applyMiddleware(...middleware)
 const composeEnhancers = dev && devtools ? devtools : compose;
 
 const middleware = [thunk];
@@ -31,5 +32,6 @@ if (dev) {
     middleware.push(logger);
 }
 
+// console.log(applyMiddleware(...middleware));
 // Init store
 export default createStore(rootReducer, composeEnhancers(applyMiddleware(...middleware)));

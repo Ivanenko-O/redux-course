@@ -67,7 +67,7 @@ export default class Notification extends Component {
     render () {
         const { error } = this.props;
         const { notificationIn } = this.state;
-
+        {/* in - флаг на появление или на выход*/}
         return (
             <Transition
                 appear
@@ -78,7 +78,7 @@ export default class Notification extends Component {
                 onExit = { this.handleNotificationDisappear }>
                 <section className = { Styles.notification }>
                     <h6>Error!</h6>
-                    <span>{error.message}</span>
+                    <span>{ error }</span>
                 </section>
             </Transition>
         );

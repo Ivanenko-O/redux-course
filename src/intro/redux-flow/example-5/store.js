@@ -25,6 +25,7 @@ const dev = process.env.NODE_ENV === 'development'; // eslint-disable-line
 const devtools = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
 const composeEnhancers = dev && devtools ? devtools : compose;
 
+// для управления асинхронными операциями, всегда возвращает функцию для доступа
 const middleware = [thunk];
 
 if (dev) {

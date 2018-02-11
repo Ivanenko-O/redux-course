@@ -7,11 +7,12 @@ export const deletePost = (postId) => ({
     payload: postId,
 });
 
+// lorem.sentence from lib faker
 export const createPost = () => ({
     type:    CREATE_POST,
     payload: lorem.sentence(),
 });
-
+// return func = ()
 export const createPostAsync = () => async (dispatch) => {
     const response = await fetch('http://date.jsontest.com/');
 

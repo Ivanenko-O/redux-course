@@ -29,7 +29,12 @@ const middleware1 = () => (next) => (action) => {
 // This is a middleware
 const middleware2 = () => (next) => (action) => {
     console.log('• middleware 2 •');
+     //
+     // if(Math.round(Math.random()) === 1 ) {
+     //     return
+     // }
 
+     // action.meta = 'meta_info';
     next(action);
 };
 

@@ -16,8 +16,11 @@ const mapStateToProps = ({ notifications }) => ({
     notifications,
 });
 
+
 const mapDispatchToProps = (dispatch) => ({
     dissolve: bindActionCreators(notificationsActions.dissolve, dispatch),
+    // dissolve: () => dispatch (notificationsActions.dissolve())
 });
 
+// соединяет компонент с редаксом. первый параметр state  from provider, dispatch
 export default connect(mapStateToProps, mapDispatchToProps)(Notifications);
