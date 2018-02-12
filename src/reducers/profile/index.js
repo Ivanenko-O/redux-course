@@ -3,6 +3,7 @@ import { Record } from 'immutable';
 
 
 import types from 'actions/profile/types';
+import {groupId} from "../../instruments/api";
 
 const initialState = new Record({
     id: '',
@@ -12,6 +13,7 @@ const initialState = new Record({
     firstName: '',
     lastName: '',
     email: '',
+    groupId: '',
 })();
 
 export default (state = initialState, action) => {

@@ -1,5 +1,8 @@
 // Core
 import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import authActions from 'actions/auth';
 
 // Components
 import Notifications from 'components/Notifications';
@@ -8,17 +11,28 @@ import Navigation from 'components/Navigation';
 import Catcher from 'components/Catcher';
 import SignupForm from 'components/Forms/Signup';
 
-export default class Signup extends Component {
+class Signup extends Component {
     render () {
+
+        const { authFetching, signup } = this.props;
         return (
             <Fragment>
                 <Notifications />
                 <Spinner />
                 <Navigation />
                 <Catcher>
-                    <SignupForm />
+                    <SignupForm authFetching = { authFetching} signup = { signup }/>
                 </Catcher>
             </Fragment>
         );
     }
 }
+const mapStateToProps = ({ ui }) => ({
+    authFetching: ui.authFetching,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    signup: bindActionCreators(authActions.signup, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Signup);
