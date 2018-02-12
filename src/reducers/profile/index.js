@@ -3,7 +3,6 @@ import { Record } from 'immutable';
 
 
 import types from 'actions/profile/types';
-import {groupId} from "../../instruments/api";
 
 const initialState = new Record({
     id: '',
@@ -21,6 +20,9 @@ export default (state = initialState, action) => {
         case types.FILL_PROFILE:
         case types.UPDATE_PROFILE_SUCCESS:
             return state.merge(action.payload);
+
+        case types.CLEAR_PROFILE:
+            return initialState;
 
         case types.UPDATE_AVATAR_SUCCESS:
             return state.set('avatar', action.payload);

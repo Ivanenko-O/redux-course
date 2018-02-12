@@ -7,6 +7,7 @@ import auth from './auth';
 import profile from './profile';
 import ui from './ui';
 import forms from './forms';
+import users from './users';
 
 export default combineReducers ({
     router,
@@ -16,4 +17,5 @@ export default combineReducers ({
     profile,
     ui,
     forms,
+    users,
 });

@@ -1,6 +1,9 @@
 import types from './types';
 
 import { api, groupId } from '../../instruments/api';
+import { normalize } from 'normalizr';
+import { post } from 'schemas';
+import usersActions from 'actions/users';
 
 export default Object.freeze({
     // когда используем thunk, есть доступ к dispatch
@@ -19,9 +22,14 @@ export default Object.freeze({
                 throw new Error(message);
             }
 
+            const mormalizedPosts = normalize(data, [post]);
+
+            console.log(mormalizedPosts);
+
+            //отправляем массив с данными в редакс
             dispatch({
                 type: types.FETCH_POSTS_SUCCESS,
-                payload: data,
+                payload: mormalizedPosts,
 
             });
 
@@ -30,11 +38,14 @@ export default Object.freeze({
                 type: types.FETCH_POSTS_FAIL,
                 payload: error.message,
                 error: true,
-                meta: 'Additional info'
             });
-            console.log(error);
+            dispatch(usersActions(normalizedPosts.entities.users));
         } finally {
             console.log('finally');
         }
     },
+    clearPosts: () => ({
+        type: types.CLEAR_POSTS,
+    }),
+    // createPost: () =>
 });

@@ -6,5 +6,7 @@ export function* saga () {
     yield all([
         auth.signupWatcher(),
         auth.authenticateWatcher(),
+        auth.loginWatcher(),
+        auth.logoutWatcher(),
     ]);
 }
