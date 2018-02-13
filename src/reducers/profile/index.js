@@ -3,6 +3,7 @@ import { Record } from 'immutable';
 
 
 import types from 'actions/profile/types';
+import {groupId} from "../../instruments/api";
 
 const initialState = new Record({
     id: '',
@@ -12,7 +13,7 @@ const initialState = new Record({
     firstName: '',
     lastName: '',
     email: '',
-    groupId: '',
+    groupId: groupId,
 })();
 
 export default (state = initialState, action) => {
@@ -20,7 +21,7 @@ export default (state = initialState, action) => {
         case types.FILL_PROFILE:
         case types.UPDATE_PROFILE_SUCCESS:
             return state.merge(action.payload);
-
+            
         case types.CLEAR_PROFILE:
             return initialState;
 

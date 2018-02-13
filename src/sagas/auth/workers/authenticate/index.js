@@ -7,6 +7,7 @@ import uiActions from 'actions/ui';
 import authActions from 'actions/auth';
 import profileActions from 'actions/profile';
 import { api, groupId } from 'instruments/api';
+import pages from 'routes/pages';
 
 export function* authenticateWorker ({ payload: token }) {
 
@@ -44,7 +45,7 @@ export function* authenticateWorker ({ payload: token }) {
         yield put(actions.change('forms.user.profile.lastName', lastName));
 
 
-        yield put(replace('/feed'));
+        yield put(replace(pages.feed));
     } catch (error){
         yield put(authActions.authenticateFail(error.message));
     } finally {

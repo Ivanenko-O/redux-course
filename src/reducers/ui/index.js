@@ -1,12 +1,13 @@
+// Core
 import { Record } from 'immutable';
-// record - не нужно писать .get , можем обращаться как к обычному js объекту
 
-
+// Types
 import types from 'actions/ui/types';
 
 const initialState = new Record({
-    initialized: false,
+    initialized:  false,
     authFetching: false,
+    feedFetching: false,
 })();
 
 export default (state = initialState, action) => {
@@ -19,7 +20,13 @@ export default (state = initialState, action) => {
 
         case types.STOP_AUTH_FETCHING:
             return state.set('authFetching', false);
-            
+
+        case types.START_FEED_FETCHING:
+            return state.set('feedFetching', true);
+
+        case types.STOP_FEED_FETCHING:
+            return state.set('feedFetching', false);
+
         default:
             return state;
     }

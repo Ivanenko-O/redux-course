@@ -7,7 +7,7 @@ export default combineForms(
             lastName:  '',
             password:  '',
             email:     '',
-            invite:    '',
+            invite:    'WfigUqMpbvGX',
         },
         login: {
             email:    '',
