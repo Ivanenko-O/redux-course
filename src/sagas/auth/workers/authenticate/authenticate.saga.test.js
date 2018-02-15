@@ -1,4 +1,5 @@
 import { put, call } from 'redux-saga/effects';
+import { cloneableGenerator } from 'redux-saga/utils';
 import { actions } from 'react-redux-form';
 import { replace } from 'react-router-redux';
 
@@ -14,7 +15,7 @@ import { token, setup, response, responseData, responseDataFail, responseFail, e
 // authenticateAction - return {} from action
 const authenticateAction = authActions.authenticate(token);
 const url = `${api}/user/login`;
-const saga = authenticateWorker(authenticateAction);
+const saga = cloneableGenerator(authenticateWorker)(authenticateAction);
 
 setup();
 
@@ -25,7 +26,7 @@ describe('authenticate saga:', () => {
         expect(saga.next().value).toEqual(put(uiActions.startAuthFetching()));
     });
 
-    test('should dispatch START_AUTH_FETCHING', () => {
+    test('should call a fetch reguest', () => {
         expect(saga.next().value).toEqual(call(fetch, url, {method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -33,5 +34,68 @@ describe('authenticate saga:', () => {
             body: JSON.stringify({ token }),
             }),
         );
+    });
+
+    test('should !== 200 response', () => {
+        const clone = saga.clone();
+
+        expect(clone.next(responseFail).value).toEqual(
+            call([responseFail, responseFail.json])
+        );
+
+        expect(clone.next(responseDataFail).value).toEqual(
+            put(authActions.authenticateFail(error.message))
+        );
+
+        expect(localStorage.removeItem).toHaveBeenCalledTimes(1);
+        expect(localStorage.removeItem).toHaveBeenCalledWith('token');
+        expect(localStorage.getItem('token')).toBeUndefined();
+    });
+
+
+    test('the fetch request should return valid response', () => {
+        expect(saga.next(response).value).toEqual(
+            call([response, response.json])
+        );
+    });
+
+    test(`should dispatch 'AUTHENTICATE_SUCCESS' action`, () => {
+        expect(saga.next(responseData).value).toEqual(
+            put(authActions.authenticateSuccess())
+        );
+    });
+
+    test(`LocalStorage should contain token`, () => {
+        expect(localStorage.getItem('token')).toBe(token);
+        expect(localStorage.setItem).toHaveBeenCalledTimes(1);
+        expect(localStorage.getItem).toHaveBeenCalledWith('token');
+    });
+
+    test(`should dispatch 'FILL_PROFILE'`, () => {
+        expect(saga.next().value).toEqual(put(profileActions.fillProfile(profile)));
+    });
+
+    test(`should dispatch redux-saga  'CHANGE' action`, () => {
+        expect(saga.next().value).toEqual(put(actions.change('forms.user.profile.firstName', profile.firstName)));
+    });
+
+    test(`should dispatch redux-saga  'CHANGE' action`, () => {
+        expect(saga.next().value).toEqual(put(actions.change('forms.user.profile.lastName', profile.lastName)));
+    });
+
+    test(`should dispatch 'REPLACE' action`, () => {
+        expect(saga.next().value).toEqual(put(replace(pages.feed)));
+    });
+
+    test(`should dispatch redux-saga  'STOP_AUTH_FETCHING' action`, () => {
+        expect(saga.next().value).toEqual(put(uiActions.stopAuthFetching()));
+    });
+
+    test(`should dispatch redux-saga  'INITIALIZE' action`, () => {
+        expect(saga.next().value).toEqual(put(uiActions.initialize()));
+    });
+
+    test(`should be completed`, () => {
+        expect(saga.next().done).toBe(true);
     });
 });
