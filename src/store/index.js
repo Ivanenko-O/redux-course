@@ -13,6 +13,8 @@ import reducer from 'reducers';
 // Environment check
 const dev = process.env.NODE_ENV === 'development'; // eslint-disable-line
 const devtools = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
+
+// на месте компоус бдет результат applyMiddleware(...middleware)
 const composeEnhancers = dev && devtools ? devtools : compose;
 
 const history = createBrowserHistory();
@@ -40,6 +42,7 @@ if (dev) {
 }
 
 export { history };
+console.log('text', applyMiddleware(...middleware));
 export default createStore(reducer, composeEnhancers(applyMiddleware(...middleware)));
 
 sagaMiddleware.run(saga);
